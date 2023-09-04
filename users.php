@@ -22,7 +22,7 @@ $result = $conn->query($sql);
 <html>
 
 <head>
-    <title>User Data</title>
+    <title>Users Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -31,24 +31,15 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-    <h2>User Data</h2>
-    <button class="btn btn-primary">Add User</button>
+    <h2>CENTER FOR DISEASE CONTROL CLIENTS PROFILE</h2>
+    <button class="btn btn-primary" onclick="window.location='index.php'">Add User</button>
     <table class="table table-bordered">
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Date</th>
             <th scope="col">Full Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Mobile</th>
-            <th scope="col">Gender</th>
-            <th scope="col">Address</th>
-            <th scope="col">District</th>
-            <th scope="col">Temperature</th>
-            <th scope="col">Systole</th>
-            <th scope="col">Diastolic</th>
-            <th scope="col">RR</th>
-            <th scope="col">Puls</th>
-            <th scope="col">spO2</th>
+            <!-- Add other table headers here -->
+            <th scope="col">Actions</th> <!-- Add a new header for actions -->
         </tr>
         <?php
         // Loop through the data and display it in the table
@@ -57,18 +48,11 @@ $result = $conn->query($sql);
             echo "<td>" . $row["id"] . "</td>";
             echo "<td>" . $row["dateCreated"] . "</td>";
             echo "<td>" . $row["fullname"] . "</td>";
-            echo "<td>" . $row["email"] . "</td>";
-            echo "<td>" . $row["mobile"] . "</td>";
-            echo "<td>" . $row["gender"] . "</td>";
-            echo "<td>" . $row["userAddress"] . "</td>";
-            echo "<td>" . $row["district"] . "</td>";
-            echo "<td>" . $row["temperature"] . "</td>";
-            echo "<td>" . $row["systole"] . "</td>";
-            echo "<td>" . $row["diastolic"] . "</td>";
-            echo "<td>" . $row["rr"] . "</td>";
-            echo "<td>" . $row["puls"] . "</td>";
-            echo "<td>" . $row["spO2"] . "</td>";
-            echo "<//tr>";
+            // Add other table cells for other fields as needed
+            echo "<td>";
+            echo "<button class='btn btn-success' onclick='printUserPDF(" . $row["id"] . ")'>Print PDF</button>";
+            echo "</td>";
+            echo "</tr>";
         }
         ?>
     </table>
@@ -77,6 +61,15 @@ $result = $conn->query($sql);
     // Close the connection
     $conn->close();
     ?>
+
+    <script>
+
+        function printUserPDF(userId) {
+            // Use JavaScript to open a new window or tab and generate the PDF for the specific user.
+            window.open('generate_pdf.php?userId=' + userId, '_blank');
+        }
+
+    </script>
 </body>
 
 </html>
